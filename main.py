@@ -11,12 +11,12 @@ def index():
 
 @app.route('/live')
 def live():
-    global counter
-    first_gen = GameOfLife(width=25, height=25)
-    if counter > 0:
+    first_gen = GameOfLife()
+    if first_gen.counter > 0:
         first_gen.form_new_generation()
-    first_gen.new_gen(counter)
-    counter += 1
+    else:
+        first_gen.counter += 1
+
     return render_template('live.html',
                            generation=first_gen)
 
