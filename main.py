@@ -6,7 +6,7 @@ counter = 0
 
 @app.route('/')
 def index():
-    GameOfLife(width=25, height=25)
+    GameOfLife(width=20, height=15)
     return render_template('index.html')
 
 @app.route('/live')
@@ -21,4 +21,4 @@ def live():
                            generation=first_gen)
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="127.0.0.2", port=5000, debug=True)

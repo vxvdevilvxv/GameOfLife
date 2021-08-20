@@ -16,15 +16,13 @@ class SingletonMeta(type):
 
 
 class GameOfLife(metaclass=SingletonMeta):
-    def __init__(self, width=20, height=20, counter=0):
+
+    def __init__(self, width=20, height=20):
         self.__width = width
         self.__height = height
         self.world = self.generate_universe()
         self.old_world = self.world
-        self.counter = counter
-
-    def new_gen(self, counter):
-        self.counter = counter
+        self.__counter = 0
 
     def form_new_generation(self):
         universe = self.world
@@ -46,9 +44,18 @@ class GameOfLife(metaclass=SingletonMeta):
                 new_world[i][j] = 0
         self.old_world = copy.deepcopy(self.world)
         self.world = new_world
+        self.__counter += 1
 
     def generate_universe(self):
         return [[random.randint(0, 1) for _ in range(self.__width)] for _ in range(self.__height)]
+
+    @property
+    def counter(self):
+        return self.__counter
+
+    @counter.setter
+    def counter(self, value):
+        self.__counter = value
 
     @staticmethod
     def __get_near(universe, pos, system=None):
